@@ -202,6 +202,9 @@ npm run deploy
   コードに入らないよう、`npm run cf:build` では [scripts/strip-server-env.mjs](./scripts/strip-server-env.mjs) で
   `NEXT_PUBLIC_` 以外の値を取り除いています。
 - Next.js 16 の `proxy.ts`（Node.js ランタイム）は、OpenNext では実験的サポートの扱いです。
+- Next.js を上げるときは `@opennextjs/cloudflare` も対応版に上げてください。OpenNext が新しい Next.js の
+  出力に未対応だと、`next build` は通っても Worker 上でだけ全ページが500になります（例：Next.js 16.4 には
+  OpenNext 1.20.12 以降が必要）。上げたあとは `npm run preview` で画面が開くのを確かめてからデプロイします。
 - Supabase の無料プランは、DBへのリクエストが7日間ないとプロジェクトを一時停止します。
   [custom-worker.ts](./custom-worker.ts) で OpenNext の Worker を包み、Cron Trigger で毎日1回だけ
   軽い読み取りを送っています（2027年8月末まで。期限を過ぎると何もしません）。
